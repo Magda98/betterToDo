@@ -1,0 +1,4 @@
+<div class="todo-additem">
+    <input #inputElementRef placeholder="Add task" [(ngModel)]="title" type="text" (keyup.enter)="handleClick()">
+    <button class="btn" (click)="handleClick()">Add task</button>
+</div>

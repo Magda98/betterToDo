@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap");
+
+$primary: #4696f3;
+$primary-light: #7badee;
+$text: #19181d;
+$text-dark: #19181d;
+$text-light: #fff;
+$bg: #ffffff;
+$bg-elevation: rgba($primary-light, 0.1);
+
+body {
+  min-height: 100vh;
+  color: $text;
+  background: $bg;
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: "Fredoka", sans-serif;
+  position: relative;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  a {
+    text-decoration: none;
+    color: $text;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    color: $text;
+    font-family: "Fredoka", sans-serif;
+  }
+
+  img {
+    filter: brightness(0.8) contrast(1.2);
+  }
+
+  @mixin btn($background-color, $border-color) {
+    color: $text-light;
+    fill: $text-light;
+    background-color: $background-color;
+    border: 2px solid $border-color;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s, fill 0.3s;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      background-color: rgba($background-color, 0.05);
+      color: $background-color;
+      fill: $background-color;
+    }
+  }
+
+  .btn-primary,
+  .btn {
+    @include btn($primary-light, $primary-light);
+  }
+
+  .btn-red {
+    @include btn(rgb(179, 48, 48), rgb(179, 48, 48));
+  }
+}
