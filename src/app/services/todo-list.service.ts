@@ -15,6 +15,7 @@ const todoListStorageKey = 'Todo_List';
 export class TodoListService {
   private todoList: TodoItem[] = [];
   private todoListSubject: Subject<TodoItem[]> = new Subject<TodoItem[]>();
+  private baseUrl = "http://localhost:3000/";
 
 
   constructor(private storageService: StorageService, private http: HttpClient) {
@@ -27,31 +28,29 @@ export class TodoListService {
   }
 
   retrieveListFromDataBase() {
-    this.http.get<TodoItem[]>('http://localhost:3000/items').subscribe(
+    this.http.get<TodoItem[]>(`${this.baseUrl}items`).subscribe(
       response => this.todoListSubject.next(response)
     );
   }
 
   addItem(item: TodoItem) {
-    this.http.post('http://localhost:3000/items', item)
+    this.http.post(`${this.baseUrl}items`, item)
       .subscribe(
       () => this.retrieveListFromDataBase()
     );
   }
 
-  updateItem(item: TodoItem, changes: Partial<TodoItem>): void {
-    const index = this.todoList.indexOf(item);
-    this.todoList[index] = {...item, ...changes };
-    this.saveList();
+  updateItem(item: TodoItem, changes: Partial<TodoItem>) {
+    const changedItem = {...item, ...changes}
+     return this.http.put(`${this.baseUrl}items/${item._id}`, changedItem).subscribe(
+      () => this.retrieveListFromDataBase()
+    );
   }
 
-  deleteItem(item: TodoItem): void {
-    const index = this.todoList.indexOf(item);
-    this.todoList.splice(index, 1);
-    this.saveList();
+  deleteItem(item: TodoItem) {
+    return this.http.delete(`${this.baseUrl}items/${item._id}`).subscribe(
+      () => this.retrieveListFromDataBase()
+    );
   }
 
-  private saveList() {
-    this.storageService.setData(todoListStorageKey, this.todoList);
-  }
 }
