@@ -1,6 +1,6 @@
 <div class="todo-list">
-    <ul>
-        <li *ngFor="let item of todoList">
+    <ul *ngIf="todoList | async as todoItems">
+        <li *ngFor="let item of todoItems">
             <app-todo-item (complete)="completeItem($event)" (remove)="removeItem($event)" [item]="item">
             </app-todo-item>
         </li>

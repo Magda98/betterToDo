@@ -1,6 +1,7 @@
 export interface TodoItem {
-    title: string
-    completed?: boolean
+    _id?: string,
+    title: string,
+    completed?: boolean,
 }
 
 export interface TodoItemUpdate {
